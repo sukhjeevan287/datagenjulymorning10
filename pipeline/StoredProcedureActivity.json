@@ -1,0 +1,52 @@
+{
+	"name": "StoredProcedureActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_updateShipDate]",
+					"storedProcedureParameters": {
+						"sales_order_id": {
+							"value": {
+								"value": "@pipeline().parameters.sales_order_id",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"ship_date": {
+							"value": {
+								"value": "@pipeline().parameters.ship_date",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"sales_order_id": {
+				"type": "string"
+			},
+			"ship_date": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
