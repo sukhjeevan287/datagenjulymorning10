@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Customer.parquet",
+				"fileName": "Customnnjnjer.parquet",
 				"fileSystem": "dev"
 			},
 			"compressionCodec": "snappy"
