@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "DS_Customer_PQ",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~>  DS_Customer_PQ",
+					"dataset": {
+						"referenceName": "DS_Customer_PQ",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared DS_Customer_PQ = let AdfDoc = AzureStorage.DataLakeContents(\"https://mydevstorageaccount002.dfs.core.windows.net/dev/Customer.parquet\"), Parquet = Parquet.Document(AdfDoc) in Parquet;\r\nshared UserQuery = let Source = #\"DS_Customer_PQ\",\r\n  #\"Sorted rows\" = Table.Sort(Source, {{\"rowguid\", Order.Ascending}}),\r\n  #\"Removed columns\" = Table.RemoveColumns(#\"Sorted rows\", {\"MiddleName\"}) in #\"Removed columns\";\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}
